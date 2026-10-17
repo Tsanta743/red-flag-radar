@@ -85,7 +85,10 @@ class Matcher:
         for i in order[:top]:
             if abs(values[i]) < 0.05:
                 break
-            text = reason_text(FEATURES[i], features[FEATURES[i]])
+            value = features[FEATURES[i]]
+            if value != value and values[i] > 0:
+                continue  # absent data is not evidence for a match; do not present it as such
+            text = reason_text(FEATURES[i], value)
             if text:
                 reasons.append({"feature": FEATURES[i], "effect": round(float(values[i]), 3),
                                 "direction": "raises" if values[i] > 0 else "lowers", "text": text})
