@@ -169,7 +169,9 @@ def compare_fields(norm: dict, s: dict) -> list[dict]:
     def status(a, b):
         if not a or not b:
             return "missing"
-        return "match" if a == b else "differs"
+        if a == b:
+            return "match"
+        return "partial" if set(a.split()) & set(b.split()) else "differs"
     middle = status(norm["middle"][:1], s.get("middle", "")[:1])
     return [
         {"field": "First name", "candidate": norm["first"], "record": s.get("first", ""),

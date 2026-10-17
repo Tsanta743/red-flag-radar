@@ -2,11 +2,12 @@
 
 Every raw download is kept under data/raw/ with its retrieval date, so a run
 is reproducible even if a website changes or is offline: when a download
-fails, the most recent snapshot on disk is used instead.
+fails, or RADAR_OFFLINE is set, the most recent snapshot on disk is used.
 """
 import hashlib
 import io
 import logging
+import os
 import re
 import zipfile
 from datetime import datetime, timezone
@@ -53,7 +54,7 @@ def _snapshot(name: str, url: str, suffix: str) -> tuple[bytes, str]:
     """Download url to data/raw/<name>_<date>.<suffix>; fall back to the newest snapshot."""
     today = datetime.now(timezone.utc).strftime("%Y-%m-%d")
     target = RAW / f"{name}_{today}.{suffix}"
-    if not target.exists():
+    if not target.exists() and not os.environ.get("RADAR_OFFLINE"):
         try:
             r = requests.get(url, headers=HEADERS, timeout=120)
             r.raise_for_status()

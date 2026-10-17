@@ -104,7 +104,7 @@ def reason_text(name: str, v: float) -> str:
     if name == "sim_nom":
         if missing:
             return ""
-        return ("Identical last name" if v >= 0.99 else
+        return ("Same last name (or one part of a compound name)" if v >= 0.99 else
                 "Very similar last name (possible typo or variant)" if v >= 0.9 else
                 "Last name only partly similar")
     if name == "sim_prenom":
