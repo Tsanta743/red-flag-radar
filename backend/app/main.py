@@ -165,6 +165,11 @@ def get_screening(db: Session, sid: int) -> Screening:
     return s
 
 
+def label(code: str) -> str:
+    """FAMILY_MEDICINE -> Family Medicine, for display only."""
+    return code.replace("_", " ").title() if code and "_" in code else code
+
+
 def compare_fields(norm: dict, s: dict) -> list[dict]:
     def status(a, b):
         if not a or not b:
@@ -183,7 +188,7 @@ def compare_fields(norm: dict, s: dict) -> list[dict]:
          "status": status(norm["city"], s.get("city", ""))},
         {"field": "State", "candidate": norm["state"], "record": s.get("state", ""),
          "status": status(norm["state"], s.get("state", ""))},
-        {"field": "Specialty", "candidate": norm["specialty"], "record": s.get("specialty", ""),
+        {"field": "Specialty", "candidate": label(norm["specialty"]), "record": label(s.get("specialty", "")),
          "status": status(norm["specialty"], s.get("specialty", ""))},
         {"field": "NPI", "candidate": norm["npi"], "record": s.get("npi", ""),
          "status": status(norm["npi"], s.get("npi", ""))},
