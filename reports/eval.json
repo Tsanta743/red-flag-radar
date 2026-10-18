@@ -32,8 +32,8 @@
           "score": 0.13793103448275862
         }
       ],
-      "seconds_for_300": 1.72,
-      "model_version": "lgbm-20261017-2213",
+      "seconds_for_300": 1.73,
+      "model_version": "lgbm-20261018-0854",
       "confusion": {
         "true_positive": {
           "probable": 18,
@@ -68,8 +68,8 @@
         "cleared": 240
       },
       "missed": [],
-      "seconds_for_300": 1.57,
-      "model_version": "logreg-20261017-2213",
+      "seconds_for_300": 1.64,
+      "model_version": "logreg-20261018-0854",
       "confusion": {
         "true_positive": {
           "probable": 20,

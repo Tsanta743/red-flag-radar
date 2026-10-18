@@ -1,5 +1,5 @@
 {
-  "model_version": "lgbm-20261017-2213",
+  "model_version": "lgbm-20261018-0854",
   "data_version": "fda-2026-10-17+leie-2026-10-17",
   "features": [
     "sim_nom",
