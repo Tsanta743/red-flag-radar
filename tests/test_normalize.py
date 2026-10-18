@@ -27,3 +27,10 @@ def test_specialty_maps_leie_and_candidate_vocabulary():
     assert specialty("GENERAL PRACTICE/FP") == specialty("Family Medicine") == "FAMILY_MEDICINE"
     assert specialty("GYN/OBS") == "OBGYN"
     assert specialty("") == ""
+
+
+def test_single_letter_first_name_is_not_a_suffix():
+    assert person("V.", "A", "Esposito") == {"first": "V", "middle": "A", "last": "ESPOSITO"}
+    assert split_full_name("V. A. Esposito") == ("V", "A", "ESPOSITO")
+    assert split_full_name("Esposito, V. A.") == ("V", "A", "ESPOSITO")
+    assert person("John", "", "Smith V")["last"] == "SMITH"

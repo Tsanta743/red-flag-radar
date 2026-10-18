@@ -23,8 +23,9 @@ def clean(text) -> str:
     return re.sub(r"\s+", " ", text).strip()
 
 
-def strip_titles(tokens: list[str]) -> list[str]:
-    return [t for t in tokens if t not in TITLES and t not in SUFFIXES]
+def strip_titles(tokens: list[str], suffixes: bool = True) -> list[str]:
+    """Drop titles; drop suffixes too unless told not to (a first name "V" is an initial, not "the fifth")."""
+    return [t for t in tokens if t not in TITLES and not (suffixes and t in SUFFIXES)]
 
 
 def split_full_name(full: str) -> tuple[str, str, str]:
@@ -38,11 +39,12 @@ def split_full_name(full: str) -> tuple[str, str, str]:
     if "," in raw:
         last_part, rest = raw.split(",", 1)
         last = " ".join(strip_titles(clean(last_part).split()))
-        rest_tokens = strip_titles(clean(rest).split())
+        rest_tokens = strip_titles(clean(rest).split(), suffixes=False)
         first = rest_tokens[0] if rest_tokens else ""
         middle = " ".join(rest_tokens[1:])
         return first, middle, last
-    tokens = strip_titles(clean(raw).split())
+    tokens = strip_titles(clean(raw).split(), suffixes=False)
+    tokens = tokens[:1] + strip_titles(tokens[1:])  # suffixes only after the first name
     if not tokens:
         return "", "", ""
     if len(tokens) == 1:
@@ -52,8 +54,8 @@ def split_full_name(full: str) -> tuple[str, str, str]:
 
 def person(first="", middle="", last="") -> dict:
     """Normalize separate name fields; titles/suffixes are dropped from every field."""
-    f = strip_titles(clean(first).split())
-    m = strip_titles(clean(middle).split())
+    f = strip_titles(clean(first).split(), suffixes=False)
+    m = strip_titles(clean(middle).split(), suffixes=False)
     l = strip_titles(clean(last).split())
     # "John A" given as first name: move trailing tokens to middle.
     if len(f) > 1 and not m:

@@ -27,21 +27,27 @@ there are many "J. Smith"s. A missed match puts the trial at risk; a false match
 5. **Decide**: a person confirms or dismisses the alert, with a mandatory comment. The tool never decides.
 6. **Audit**: every decision is logged with reviewer, time, model version and list version; export to CSV or PDF.
 
-## Results (300 synthetic investigators, never used in training)
+## Results
 
-| Method | Sanctioned found (recall) | "Probable" that are right (precision) | Innocent homonyms marked "probable" |
+Four labeled test sets of 300 synthetic investigators each (1,200 in all: 120 real sanctioned people with
+altered names, 160 invented innocent namesakes, 920 others), never used in training:
+
+| Method | Sanctioned found (recall) | "Probable" that are right (precision) | Innocent namesakes marked "probable" |
 |---|---|---|---|
-| **Red Flag Radar (LightGBM, calibrated)** | **96.7%** | **100%** | **0** |
-| Logistic regression | 100% | 95.2% | 1 |
-| Exact-name check | 23.3% | 11.7% | 27 |
+| **Red Flag Radar (LightGBM, calibrated)** | **97.5%** (117/120) | **97.9%** (95/97) | **2 of 160** |
+| Exact-name check | 28.3% (34/120) | 14.8% (34/230) | 103 of 160 |
 
-Screening 300 investigators takes **1.7 s**. On three fresh test sets (seeds 2027–2029) never inspected
-while building the rules: recall 96.7–100%, precision 95.5–100%, 0 homonyms marked "probable".
-Full report: `reports/eval.json`, `reports/pr_curve.png`, and the **Evaluation** page of the app.
+Screening 300 investigators takes about **2 s**. In the main set, the namesake marked "probable" shares the
+sanctioned person's full name, state and specialty, and only the sanction record has an NPI: no model can
+separate them without it, so the app asks the reviewer to request the NPI. The two sanctioned people it
+missed had moved to another state, had a typo in their name and no NPI.
 
-The test set holds 30 real sanctioned people whose names were altered the way site lists mangle them
-(typos, initials, swapped first/last names, nicknames, compound surnames, titles), 40 invented innocent
-doctors who share a sanctioned person's name, and 230 others.
+Per-set figures, the logistic-regression reference and the precision-recall curve are in
+`reports/eval.json`, `reports/pr_curve.png` and on the **Evaluation** page of the app.
+
+The test sets mix real sanctioned people whose names were altered the way site lists mangle them
+(typos, initials, swapped first/last names, nicknames, compound surnames, titles) with invented doctors who
+share a sanctioned person's name.
 
 ## How the matching works
 

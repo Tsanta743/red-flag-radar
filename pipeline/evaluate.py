@@ -89,6 +89,28 @@ def metrics(res: pd.DataFrame, truth: pd.DataFrame) -> dict:
     }
 
 
+def pooled(scorer, sets: list[tuple[pd.DataFrame, pd.DataFrame]]) -> dict:
+    """Counts summed over several test sets: steadier than one set of 30 positives."""
+    n = {"investigators": 0, "sanctioned": 0, "found": 0, "probable": 0, "probable_right": 0,
+         "namesakes": 0, "namesakes_probable": 0, "namesakes_alert": 0}
+    for cands, truth in sets:
+        d = scorer(cands).merge(truth, on="candidate_id")
+        tp = d["kind"] == "true_positive"
+        right = tp & pd.Series([is_correct(b, t) for b, t in zip(d["best_sanction"], d["sanction_id"])], index=d.index)
+        hom = d["kind"] == "homonym"
+        n["investigators"] += len(d)
+        n["sanctioned"] += int(tp.sum())
+        n["found"] += int((right & (d["zone"] != "cleared")).sum())
+        n["probable"] += int((d["zone"] == "probable").sum())
+        n["probable_right"] += int((right & (d["zone"] == "probable")).sum())
+        n["namesakes"] += int(hom.sum())
+        n["namesakes_probable"] += int((hom & (d["zone"] == "probable")).sum())
+        n["namesakes_alert"] += int((hom & (d["zone"] != "cleared")).sum())
+    n["recall"] = round(n["found"] / n["sanctioned"], 4)
+    n["precision_probable"] = round(n["probable_right"] / max(n["probable"], 1), 4)
+    return n
+
+
 def confusion(res: pd.DataFrame, truth: pd.DataFrame) -> dict:
     d = res.merge(truth, on="candidate_id")
     return {kind: {z: int(((d["kind"] == kind) & (d["zone"] == z)).sum()) for z in ("probable", "review", "cleared")}
@@ -139,12 +161,17 @@ def main() -> None:
     # Fresh test sets never inspected while building the rules: checks the numbers above are not tuned.
     lgbm = Matcher(Bundle.load(MODELS / "model.pkl"), sanctions, surnames)
     report["robustness"] = []
+    sets = [(cands, truth)]
     for seed in (2027, 2028, 2029):
         c2, t2, _ = synth.make_test_set(sanctions, surnames, seed=seed)
+        sets.append((c2, t2))
         m2 = metrics(best_matches(lgbm, c2)[0], t2)
         report["robustness"].append({"seed": seed, **{k: m2[k] for k in (
             "recall_alert", "precision_probable", "homonyms_probable", "homonyms_alert", "clean_alert")}})
     logging.info("Robustness: %s", report["robustness"])
+    report["pooled"] = pooled(lambda c: best_matches(lgbm, c)[0], sets)
+    report["pooled_baseline"] = pooled(lambda c: baseline(sanctions, c), sets)
+    logging.info("Pooled over %d test sets: %s", len(sets), report["pooled"])
 
     (REPORTS / "eval.json").write_text(json.dumps(report, indent=2))
     fig, ax = plt.subplots(figsize=(6, 4.5))

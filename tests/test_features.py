@@ -41,8 +41,10 @@ def test_rarity_orders_common_and_rare_names():
 
 
 def test_blocker_finds_typos_and_swaps():
-    sanctions = pd.DataFrame([rec("ROGELIO", "MABUNGA"), rec("JAMES", "PETROLA"), rec("ANN", "LEE")])
+    sanctions = pd.DataFrame([rec("ROGELIO", "MABUNGA"), rec("JAMES", "PETROLA"), rec("ANN", "LEE"),
+                              rec("LAWRENCE", "HOBDY", state="LA")])
     b = Blocker(sanctions)
     assert 0 in b.candidates(normalize_candidate({"first_name": "Rogelio", "last_name": "Mabungv"}))
     assert 1 in b.candidates(normalize_candidate({"first_name": "Petrola", "last_name": "James"}))
     assert 2 not in b.candidates(normalize_candidate({"first_name": "Rogelio", "last_name": "Mabungv"}))
+    assert 3 in b.candidates(normalize_candidate({"first_name": "L", "last_name": "Hodby", "state": "LA"}))

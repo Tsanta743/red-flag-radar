@@ -1,7 +1,7 @@
 {
   "thresholds": {
     "probable": 0.9,
-    "review": 0.159
+    "review": 0.132
   },
   "n_candidates": 300,
   "truth": {
@@ -11,39 +11,45 @@
   },
   "models": {
     "LightGBM (calibrated)": {
-      "recall_alert": 0.9667,
-      "recall_probable": 0.6,
-      "precision_probable": 1.0,
-      "precision_alert": 0.6744,
-      "f1_alert": 0.7945,
-      "homonyms_probable": 0,
-      "homonyms_alert": 9,
+      "recall_alert": 0.9333,
+      "recall_probable": 0.7333,
+      "precision_probable": 0.9565,
+      "precision_alert": 0.6829,
+      "f1_alert": 0.7887,
+      "homonyms_probable": 1,
+      "homonyms_alert": 8,
       "clean_alert": 5,
       "zones": {
-        "probable": 18,
-        "review": 25,
-        "cleared": 257
+        "probable": 23,
+        "review": 18,
+        "cleared": 259
       },
       "missed": [
         {
-          "candidate_id": "INV-036",
-          "sanction_id": "FDA-13772881B8",
+          "candidate_id": "INV-031",
+          "sanction_id": "LEIE-B64149678F",
           "note": "typo",
-          "score": 0.13793103448275862
+          "score": 0.1
+        },
+        {
+          "candidate_id": "INV-116",
+          "sanction_id": "LEIE-7D6781DD74",
+          "note": "typo",
+          "score": 0.1
         }
       ],
-      "seconds_for_300": 1.73,
-      "model_version": "lgbm-20261018-0854",
+      "seconds_for_300": 2.04,
+      "model_version": "lgbm-20261018-0951",
       "confusion": {
         "true_positive": {
-          "probable": 18,
-          "review": 11,
-          "cleared": 1
+          "probable": 22,
+          "review": 6,
+          "cleared": 2
         },
         "homonym": {
-          "probable": 0,
-          "review": 9,
-          "cleared": 31
+          "probable": 1,
+          "review": 7,
+          "cleared": 32
         },
         "clean": {
           "probable": 0,
@@ -51,213 +57,238 @@
           "cleared": 225
         }
       },
-      "average_precision": 0.9534
+      "average_precision": 0.9199
     },
     "Logistic regression": {
-      "recall_alert": 1.0,
+      "recall_alert": 0.9,
       "recall_probable": 0.6667,
       "precision_probable": 0.9524,
-      "precision_alert": 0.5,
-      "f1_alert": 0.6667,
+      "precision_alert": 0.4355,
+      "f1_alert": 0.587,
       "homonyms_probable": 1,
-      "homonyms_alert": 9,
-      "clean_alert": 21,
+      "homonyms_alert": 13,
+      "clean_alert": 22,
       "zones": {
         "probable": 21,
-        "review": 39,
-        "cleared": 240
+        "review": 41,
+        "cleared": 238
       },
-      "missed": [],
-      "seconds_for_300": 1.64,
-      "model_version": "logreg-20261018-0854",
+      "missed": [
+        {
+          "candidate_id": "INV-031",
+          "sanction_id": "LEIE-B64149678F",
+          "note": "typo",
+          "score": 0.058823529411764705
+        },
+        {
+          "candidate_id": "INV-116",
+          "sanction_id": "LEIE-7D6781DD74",
+          "note": "typo",
+          "score": 0.010869565217391304
+        },
+        {
+          "candidate_id": "INV-117",
+          "sanction_id": "LEIE-E105668221",
+          "note": "swap+compound",
+          "score": 0.04
+        }
+      ],
+      "seconds_for_300": 1.76,
+      "model_version": "logreg-20261018-0951",
       "confusion": {
         "true_positive": {
           "probable": 20,
-          "review": 10,
-          "cleared": 0
+          "review": 7,
+          "cleared": 3
         },
         "homonym": {
           "probable": 1,
-          "review": 8,
-          "cleared": 31
+          "review": 12,
+          "cleared": 27
         },
         "clean": {
           "probable": 0,
-          "review": 21,
-          "cleared": 209
+          "review": 22,
+          "cleared": 208
         }
       },
-      "average_precision": 0.9319
+      "average_precision": 0.8914
     },
     "Exact name baseline": {
-      "recall_alert": 0.2333,
-      "recall_probable": 0.2333,
-      "precision_probable": 0.1167,
-      "precision_alert": 0.1167,
-      "f1_alert": 0.1556,
-      "homonyms_probable": 27,
-      "homonyms_alert": 27,
-      "clean_alert": 25,
+      "recall_alert": 0.2,
+      "recall_probable": 0.2,
+      "precision_probable": 0.1132,
+      "precision_alert": 0.1132,
+      "f1_alert": 0.1446,
+      "homonyms_probable": 21,
+      "homonyms_alert": 21,
+      "clean_alert": 23,
       "zones": {
-        "probable": 60,
+        "probable": 53,
         "review": 0,
-        "cleared": 240
+        "cleared": 247
       },
       "missed": [
         {
           "candidate_id": "INV-014",
-          "sanction_id": "LEIE-33D8229FD5",
-          "note": "nickname+typo",
-          "score": 0.0
+          "sanction_id": "LEIE-97D9F2FAAC",
+          "note": "title+nickname",
+          "score": 1.0
         },
         {
-          "candidate_id": "INV-029",
-          "sanction_id": "LEIE-8F79ED9DD7",
-          "note": "initial+nickname",
+          "candidate_id": "INV-031",
+          "sanction_id": "LEIE-B64149678F",
+          "note": "typo",
           "score": 0.0
         },
         {
           "candidate_id": "INV-036",
-          "sanction_id": "FDA-13772881B8",
+          "sanction_id": "LEIE-DA5A4837B4",
           "note": "typo",
           "score": 0.0
         },
         {
-          "candidate_id": "INV-078",
-          "sanction_id": "LEIE-D9657D7667",
-          "note": "initial+title",
-          "score": 0.0
-        },
-        {
-          "candidate_id": "INV-079",
-          "sanction_id": "LEIE-9FDAAE70A6",
-          "note": "nickname+compound",
-          "score": 0.0
-        },
-        {
-          "candidate_id": "INV-080",
-          "sanction_id": "LEIE-9A43F58C6F",
-          "note": "initial",
-          "score": 0.0
-        },
-        {
-          "candidate_id": "INV-098",
-          "sanction_id": "LEIE-0F2014171C",
-          "note": "typo+nickname",
-          "score": 0.0
-        },
-        {
-          "candidate_id": "INV-101",
-          "sanction_id": "FDA-F8F50D26E2",
-          "note": "swap",
-          "score": 0.0
-        },
-        {
-          "candidate_id": "INV-109",
-          "sanction_id": "LEIE-3379088D43",
-          "note": "compound",
-          "score": 0.0
-        },
-        {
-          "candidate_id": "INV-126",
-          "sanction_id": "LEIE-CB5F4BCA4A",
-          "note": "typo",
-          "score": 0.0
-        },
-        {
-          "candidate_id": "INV-130",
-          "sanction_id": "LEIE-A3F2B1FF73",
-          "note": "title+compound",
-          "score": 0.0
-        },
-        {
-          "candidate_id": "INV-143",
-          "sanction_id": "LEIE-DCB3814F16",
-          "note": "swap+initial",
-          "score": 0.0
-        },
-        {
-          "candidate_id": "INV-158",
-          "sanction_id": "LEIE-15F5E88E97",
-          "note": "compound",
-          "score": 0.0
-        },
-        {
-          "candidate_id": "INV-170",
+          "candidate_id": "INV-042",
           "sanction_id": "FDA-A7011D0160",
-          "note": "swap",
+          "note": "typo",
           "score": 0.0
         },
         {
-          "candidate_id": "INV-181",
-          "sanction_id": "LEIE-EB811E8D02",
-          "note": "compound",
-          "score": 0.0
-        },
-        {
-          "candidate_id": "INV-183",
+          "candidate_id": "INV-045",
           "sanction_id": "FDA-B5E8F9A5B3",
-          "note": "compound",
+          "note": "typo",
           "score": 0.0
         },
         {
-          "candidate_id": "INV-187",
-          "sanction_id": "LEIE-292BF1951C",
-          "note": "swap",
+          "candidate_id": "INV-052",
+          "sanction_id": "FDA-49A5D2754B",
+          "note": "nickname+title",
+          "score": 1.0
+        },
+        {
+          "candidate_id": "INV-077",
+          "sanction_id": "LEIE-E8FDF26EC7",
+          "note": "none+typo",
           "score": 0.0
         },
         {
-          "candidate_id": "INV-218",
-          "sanction_id": "LEIE-7F979D6159",
-          "note": "none+swap",
-          "score": 0.0
-        },
-        {
-          "candidate_id": "INV-240",
-          "sanction_id": "LEIE-DDEF7D93C5",
-          "note": "typo+title",
-          "score": 0.0
-        },
-        {
-          "candidate_id": "INV-259",
-          "sanction_id": "LEIE-0370C7D4E1",
-          "note": "nickname+swap",
-          "score": 0.0
-        },
-        {
-          "candidate_id": "INV-282",
-          "sanction_id": "FDA-1D7B3C7E09",
+          "candidate_id": "INV-099",
+          "sanction_id": "FDA-F0CDE02DE5",
           "note": "title",
           "score": 1.0
         },
         {
-          "candidate_id": "INV-293",
-          "sanction_id": "LEIE-595CE91984",
-          "note": "nickname+none",
+          "candidate_id": "INV-116",
+          "sanction_id": "LEIE-7D6781DD74",
+          "note": "typo",
           "score": 0.0
         },
         {
-          "candidate_id": "INV-294",
-          "sanction_id": "LEIE-A9237785B0",
+          "candidate_id": "INV-117",
+          "sanction_id": "LEIE-E105668221",
+          "note": "swap+compound",
+          "score": 0.0
+        },
+        {
+          "candidate_id": "INV-120",
+          "sanction_id": "LEIE-D3AD54A178",
+          "note": "compound",
+          "score": 0.0
+        },
+        {
+          "candidate_id": "INV-152",
+          "sanction_id": "LEIE-7C00C5B9BD",
+          "note": "none+compound",
+          "score": 0.0
+        },
+        {
+          "candidate_id": "INV-157",
+          "sanction_id": "LEIE-D9560E2F6A",
+          "note": "none+swap",
+          "score": 0.0
+        },
+        {
+          "candidate_id": "INV-203",
+          "sanction_id": "FDA-13772881B8",
           "note": "swap",
+          "score": 0.0
+        },
+        {
+          "candidate_id": "INV-212",
+          "sanction_id": "LEIE-595CE91984",
+          "note": "typo+initial",
+          "score": 0.0
+        },
+        {
+          "candidate_id": "INV-213",
+          "sanction_id": "LEIE-4B87744018",
+          "note": "initial+none",
+          "score": 0.0
+        },
+        {
+          "candidate_id": "INV-214",
+          "sanction_id": "LEIE-21B6919550",
+          "note": "typo+none",
+          "score": 0.0
+        },
+        {
+          "candidate_id": "INV-216",
+          "sanction_id": "FDA-F8F50D26E2",
+          "note": "compound",
+          "score": 0.0
+        },
+        {
+          "candidate_id": "INV-222",
+          "sanction_id": "LEIE-4D5B7F343A",
+          "note": "typo",
+          "score": 0.0
+        },
+        {
+          "candidate_id": "INV-233",
+          "sanction_id": "LEIE-1ED60555D2",
+          "note": "title+compound",
+          "score": 0.0
+        },
+        {
+          "candidate_id": "INV-250",
+          "sanction_id": "LEIE-961FEC67D9",
+          "note": "title+typo",
+          "score": 0.0
+        },
+        {
+          "candidate_id": "INV-255",
+          "sanction_id": "LEIE-034735F12C",
+          "note": "swap",
+          "score": 0.0
+        },
+        {
+          "candidate_id": "INV-283",
+          "sanction_id": "LEIE-B0135F28E9",
+          "note": "nickname+swap",
+          "score": 0.0
+        },
+        {
+          "candidate_id": "INV-300",
+          "sanction_id": "LEIE-C441A4EAAD",
+          "note": "nickname",
           "score": 0.0
         }
       ],
       "confusion": {
         "true_positive": {
-          "probable": 8,
+          "probable": 9,
           "review": 0,
-          "cleared": 22
+          "cleared": 21
         },
         "homonym": {
-          "probable": 27,
+          "probable": 21,
           "review": 0,
-          "cleared": 13
+          "cleared": 19
         },
         "clean": {
-          "probable": 25,
+          "probable": 23,
           "review": 0,
-          "cleared": 205
+          "cleared": 207
         }
       }
     }
@@ -270,118 +301,98 @@
     },
     {
       "recall": 1.0,
-      "precision": 0.1014,
-      "threshold": 0.0001
-    },
-    {
-      "recall": 1.0,
-      "precision": 0.1339,
-      "threshold": 0.0007
-    },
-    {
-      "recall": 1.0,
-      "precision": 0.2655,
-      "threshold": 0.0012
-    },
-    {
-      "recall": 1.0,
-      "precision": 0.3191,
-      "threshold": 0.0117
-    },
-    {
-      "recall": 1.0,
-      "precision": 0.3896,
-      "threshold": 0.0833
+      "precision": 0.3614,
+      "threshold": 0.0159
     },
     {
       "recall": 1.0,
       "precision": 0.4,
-      "threshold": 0.0933
+      "threshold": 0.0213
     },
     {
       "recall": 1.0,
-      "precision": 0.4054,
-      "threshold": 0.0952
-    },
-    {
-      "recall": 1.0,
-      "precision": 0.4412,
+      "precision": 0.4478,
       "threshold": 0.1
     },
     {
-      "recall": 1.0,
-      "precision": 0.4545,
-      "threshold": 0.1379
-    },
-    {
-      "recall": 0.9667,
-      "precision": 0.5,
-      "threshold": 0.1399
-    },
-    {
-      "recall": 0.9667,
-      "precision": 0.5088,
-      "threshold": 0.1585
-    },
-    {
-      "recall": 0.9667,
-      "precision": 0.6744,
-      "threshold": 0.46
-    },
-    {
-      "recall": 0.9667,
-      "precision": 0.7632,
-      "threshold": 0.5526
-    },
-    {
-      "recall": 0.9667,
-      "precision": 0.8056,
-      "threshold": 0.6905
+      "recall": 0.9333,
+      "precision": 0.4516,
+      "threshold": 0.1319
     },
     {
       "recall": 0.9333,
-      "precision": 0.8235,
-      "threshold": 0.7468
+      "precision": 0.6829,
+      "threshold": 0.3846
     },
     {
       "recall": 0.9,
-      "precision": 0.9,
-      "threshold": 0.7586
+      "precision": 0.675,
+      "threshold": 0.4
     },
     {
-      "recall": 0.9,
-      "precision": 0.931,
-      "threshold": 0.8182
+      "recall": 0.8667,
+      "precision": 0.7222,
+      "threshold": 0.4109
     },
     {
-      "recall": 0.6667,
+      "recall": 0.8667,
+      "precision": 0.7429,
+      "threshold": 0.4906
+    },
+    {
+      "recall": 0.8667,
+      "precision": 0.8387,
+      "threshold": 0.5332
+    },
+    {
+      "recall": 0.8667,
+      "precision": 0.8667,
+      "threshold": 0.5333
+    },
+    {
+      "recall": 0.8333,
+      "precision": 0.8621,
+      "threshold": 0.56
+    },
+    {
+      "recall": 0.7667,
+      "precision": 0.8519,
+      "threshold": 0.5714
+    },
+    {
+      "recall": 0.7667,
+      "precision": 0.8846,
+      "threshold": 0.7692
+    },
+    {
+      "recall": 0.7333,
+      "precision": 0.9565,
+      "threshold": 0.9245
+    },
+    {
+      "recall": 0.6333,
       "precision": 1.0,
-      "threshold": 0.85
+      "threshold": 0.9348
     },
     {
-      "recall": 0.6,
+      "recall": 0.5667,
       "precision": 1.0,
-      "threshold": 0.9516
+      "threshold": 0.9444
     },
     {
       "recall": 0.5,
       "precision": 1.0,
-      "threshold": 0.9655
+      "threshold": 0.9813
     },
     {
-      "recall": 0.4667,
-      "precision": 1.0,
-      "threshold": 0.9869
-    },
-    {
-      "recall": 0.1,
+      "recall": 0.4333,
       "precision": 1.0,
       "threshold": 1.0
     }
   ],
   "pr_curves": {
     "LightGBM (calibrated)": {
-      "ap": 0.9534,
+      "ap": 0.9199,
       "points": [
         {
           "recall": 1.0,
@@ -390,118 +401,98 @@
         },
         {
           "recall": 1.0,
-          "precision": 0.1014,
-          "threshold": 0.0001
-        },
-        {
-          "recall": 1.0,
-          "precision": 0.1339,
-          "threshold": 0.0007
-        },
-        {
-          "recall": 1.0,
-          "precision": 0.2655,
-          "threshold": 0.0012
-        },
-        {
-          "recall": 1.0,
-          "precision": 0.3191,
-          "threshold": 0.0117
-        },
-        {
-          "recall": 1.0,
-          "precision": 0.3896,
-          "threshold": 0.0833
+          "precision": 0.3614,
+          "threshold": 0.0159
         },
         {
           "recall": 1.0,
           "precision": 0.4,
-          "threshold": 0.0933
+          "threshold": 0.0213
         },
         {
           "recall": 1.0,
-          "precision": 0.4054,
-          "threshold": 0.0952
-        },
-        {
-          "recall": 1.0,
-          "precision": 0.4412,
+          "precision": 0.4478,
           "threshold": 0.1
         },
         {
-          "recall": 1.0,
-          "precision": 0.4545,
-          "threshold": 0.1379
-        },
-        {
-          "recall": 0.9667,
-          "precision": 0.5,
-          "threshold": 0.1399
-        },
-        {
-          "recall": 0.9667,
-          "precision": 0.5088,
-          "threshold": 0.1585
-        },
-        {
-          "recall": 0.9667,
-          "precision": 0.6744,
-          "threshold": 0.46
-        },
-        {
-          "recall": 0.9667,
-          "precision": 0.7632,
-          "threshold": 0.5526
-        },
-        {
-          "recall": 0.9667,
-          "precision": 0.8056,
-          "threshold": 0.6905
+          "recall": 0.9333,
+          "precision": 0.4516,
+          "threshold": 0.1319
         },
         {
           "recall": 0.9333,
-          "precision": 0.8235,
-          "threshold": 0.7468
+          "precision": 0.6829,
+          "threshold": 0.3846
         },
         {
           "recall": 0.9,
-          "precision": 0.9,
-          "threshold": 0.7586
+          "precision": 0.675,
+          "threshold": 0.4
         },
         {
-          "recall": 0.9,
-          "precision": 0.931,
-          "threshold": 0.8182
+          "recall": 0.8667,
+          "precision": 0.7222,
+          "threshold": 0.4109
         },
         {
-          "recall": 0.6667,
+          "recall": 0.8667,
+          "precision": 0.7429,
+          "threshold": 0.4906
+        },
+        {
+          "recall": 0.8667,
+          "precision": 0.8387,
+          "threshold": 0.5332
+        },
+        {
+          "recall": 0.8667,
+          "precision": 0.8667,
+          "threshold": 0.5333
+        },
+        {
+          "recall": 0.8333,
+          "precision": 0.8621,
+          "threshold": 0.56
+        },
+        {
+          "recall": 0.7667,
+          "precision": 0.8519,
+          "threshold": 0.5714
+        },
+        {
+          "recall": 0.7667,
+          "precision": 0.8846,
+          "threshold": 0.7692
+        },
+        {
+          "recall": 0.7333,
+          "precision": 0.9565,
+          "threshold": 0.9245
+        },
+        {
+          "recall": 0.6333,
           "precision": 1.0,
-          "threshold": 0.85
+          "threshold": 0.9348
         },
         {
-          "recall": 0.6,
+          "recall": 0.5667,
           "precision": 1.0,
-          "threshold": 0.9516
+          "threshold": 0.9444
         },
         {
           "recall": 0.5,
           "precision": 1.0,
-          "threshold": 0.9655
+          "threshold": 0.9813
         },
         {
-          "recall": 0.4667,
-          "precision": 1.0,
-          "threshold": 0.9869
-        },
-        {
-          "recall": 0.1,
+          "recall": 0.4333,
           "precision": 1.0,
           "threshold": 1.0
         }
       ]
     },
     "Logistic regression": {
-      "ap": 0.9319,
+      "ap": 0.8914,
       "points": [
         {
           "recall": 1.0,
@@ -510,116 +501,71 @@
         },
         {
           "recall": 1.0,
-          "precision": 0.1003,
-          "threshold": 0.0001
-        },
-        {
-          "recall": 1.0,
-          "precision": 0.1124,
-          "threshold": 0.0003
-        },
-        {
-          "recall": 1.0,
-          "precision": 0.1887,
-          "threshold": 0.0039
-        },
-        {
-          "recall": 1.0,
-          "precision": 0.2439,
-          "threshold": 0.0088
-        },
-        {
-          "recall": 1.0,
-          "precision": 0.2703,
-          "threshold": 0.0182
-        },
-        {
-          "recall": 1.0,
-          "precision": 0.3704,
-          "threshold": 0.0526
-        },
-        {
-          "recall": 1.0,
-          "precision": 0.375,
-          "threshold": 0.069
-        },
-        {
-          "recall": 1.0,
-          "precision": 0.411,
-          "threshold": 0.1371
-        },
-        {
-          "recall": 1.0,
-          "precision": 0.4615,
-          "threshold": 0.1848
-        },
-        {
-          "recall": 1.0,
-          "precision": 0.5,
-          "threshold": 0.1975
-        },
-        {
-          "recall": 1.0,
-          "precision": 0.5085,
-          "threshold": 0.2049
-        },
-        {
-          "recall": 1.0,
-          "precision": 0.5172,
-          "threshold": 0.2059
+          "precision": 0.297,
+          "threshold": 0.0109
         },
         {
           "recall": 0.9667,
-          "precision": 0.617,
-          "threshold": 0.4167
-        },
-        {
-          "recall": 0.9667,
-          "precision": 0.6744,
-          "threshold": 0.5
-        },
-        {
-          "recall": 0.9667,
-          "precision": 0.8056,
-          "threshold": 0.6733
+          "precision": 0.3258,
+          "threshold": 0.04
         },
         {
           "recall": 0.9333,
-          "precision": 0.8235,
-          "threshold": 0.7222
+          "precision": 0.4,
+          "threshold": 0.0588
         },
         {
           "recall": 0.9,
-          "precision": 0.8438,
-          "threshold": 0.8319
+          "precision": 0.4091,
+          "threshold": 0.0936
+        },
+        {
+          "recall": 0.9,
+          "precision": 0.4154,
+          "threshold": 0.1228
+        },
+        {
+          "recall": 0.9,
+          "precision": 0.4355,
+          "threshold": 0.125
+        },
+        {
+          "recall": 0.9,
+          "precision": 0.6136,
+          "threshold": 0.413
+        },
+        {
+          "recall": 0.8667,
+          "precision": 0.7647,
+          "threshold": 0.5556
+        },
+        {
+          "recall": 0.8667,
+          "precision": 0.8387,
+          "threshold": 0.64
+        },
+        {
+          "recall": 0.8667,
+          "precision": 0.8667,
+          "threshold": 0.7031
         },
         {
           "recall": 0.6667,
           "precision": 0.9524,
-          "threshold": 0.9302
+          "threshold": 0.9
         },
         {
           "recall": 0.6,
           "precision": 1.0,
-          "threshold": 0.932
-        },
-        {
-          "recall": 0.5667,
-          "precision": 1.0,
-          "threshold": 0.9497
+          "threshold": 0.9341
         },
         {
           "recall": 0.5333,
           "precision": 1.0,
-          "threshold": 0.9512
+          "threshold": 0.9921
         },
         {
-          "recall": 0.5,
-          "precision": 1.0,
-          "threshold": 0.9846
-        },
-        {
-          "recall": 0.1333,
+          "recall": 0.0333,
           "precision": 1.0,
           "threshold": 1.0
         }
@@ -630,26 +576,50 @@
     {
       "seed": 2027,
       "recall_alert": 0.9667,
-      "precision_probable": 0.9545,
-      "homonyms_probable": 0,
-      "homonyms_alert": 7,
-      "clean_alert": 5
+      "precision_probable": 0.9583,
+      "homonyms_probable": 1,
+      "homonyms_alert": 6,
+      "clean_alert": 2
     },
     {
       "seed": 2028,
       "recall_alert": 1.0,
       "precision_probable": 1.0,
       "homonyms_probable": 0,
-      "homonyms_alert": 9,
-      "clean_alert": 3
+      "homonyms_alert": 11,
+      "clean_alert": 2
     },
     {
       "seed": 2029,
       "recall_alert": 1.0,
       "precision_probable": 1.0,
       "homonyms_probable": 0,
-      "homonyms_alert": 6,
-      "clean_alert": 4
+      "homonyms_alert": 5,
+      "clean_alert": 7
     }
-  ]
+  ],
+  "pooled": {
+    "investigators": 1200,
+    "sanctioned": 120,
+    "found": 117,
+    "probable": 97,
+    "probable_right": 95,
+    "namesakes": 160,
+    "namesakes_probable": 2,
+    "namesakes_alert": 30,
+    "recall": 0.975,
+    "precision_probable": 0.9794
+  },
+  "pooled_baseline": {
+    "investigators": 1200,
+    "sanctioned": 120,
+    "found": 34,
+    "probable": 230,
+    "probable_right": 34,
+    "namesakes": 160,
+    "namesakes_probable": 103,
+    "namesakes_alert": 103,
+    "recall": 0.2833,
+    "precision_probable": 0.1478
+  }
 }

@@ -1,5 +1,5 @@
 {
-  "model_version": "lgbm-20261018-0854",
+  "model_version": "lgbm-20261018-0951",
   "data_version": "fda-2026-10-17+leie-2026-10-17",
   "features": [
     "sim_nom",
@@ -15,13 +15,13 @@
     "rarete_nom",
     "deuxieme_prenom"
   ],
-  "n_pairs": 199582,
+  "n_pairs": 199604,
   "n_positive": 3000,
   "seed": 7,
   "calibration": "isotonic on 25% held-out candidates",
   "thresholds": {
     "probable": 0.9,
-    "review": 0.159
+    "review": 0.132
   },
   "threshold_rule": "review = max F2 on held-out training pairs (capped at 0.40); probable = calibrated probability 0.90",
   "monotone_constraints": {

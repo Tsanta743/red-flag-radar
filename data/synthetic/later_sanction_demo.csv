@@ -1,2 +1,2 @@
 sanction_id,source,first,middle,last,display_name,city,state,specialty,specialty_raw,npi,sanction_type,severity,sanction_date,end_term,source_url,fetched_at,import_version
-LEIE-DEMO-0001,OIG LEIE,DELPHINE,,SIMMONS,Delphine Simmons,ATLANTA,GA,SURGERY,SURGERY,1797817688,Mandatory exclusion: health care fraud felony (SYNTHETIC DEMO RECORD),high,2026-10-18,Until reinstated,https://oig.hhs.gov/exclusions/,2026-10-18,leie-demo-update
+LEIE-DEMO-0001,OIG LEIE,KARA,E,JACKSON,Kara Jackson,REDDING,CA,PEDIATRICS,PEDIATRICS,1283709506,Mandatory exclusion: health care fraud felony (SYNTHETIC DEMO RECORD),high,2026-10-18,Until reinstated,https://oig.hhs.gov/exclusions/,2026-10-18,leie-demo-update

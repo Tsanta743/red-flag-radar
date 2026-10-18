@@ -40,6 +40,8 @@ export default function EvaluationPage() {
 
   const main = data.models["LightGBM (calibrated)"];
   const base = data.models["Exact name baseline"];
+  const P = data.pooled;
+  const B = data.pooled_baseline;
   const curves = Object.entries(data.pr_curves).map(([k, c]) => ({
     key: k, ...SERIES[k], ap: c.ap, points: [...c.points].sort((a, b) => a.recall - b.recall),
   }));
@@ -48,21 +50,28 @@ export default function EvaluationPage() {
   return (
     <div className="space-y-8">
       <section className="max-w-3xl">
-        <h1 className="text-2xl font-semibold tracking-tight">Does it work? Measured on a labeled test set</h1>
+        <h1 className="text-2xl font-semibold tracking-tight">Does it work? Measured on labeled test sets</h1>
         <p className="mt-2 text-slate-600">
-          {data.n_candidates} synthetic investigators: {data.truth.true_positive} real sanctioned people whose names were altered
-          (typos, initials, swapped names, nicknames), {data.truth.homonym} innocent doctors who share a sanctioned person’s name,
-          and {data.truth.clean} others. The model never saw this set during training.
+          Each set holds {data.n_candidates} synthetic investigators: {data.truth.true_positive} real sanctioned people whose names were
+          altered (typos, initials, swapped names, nicknames), {data.truth.homonym} innocent doctors who share a sanctioned person’s
+          name, and {data.truth.clean} others. The model never saw these sets during training.
         </p>
       </section>
 
+      {data.pooled && (
+        <p className="text-sm text-slate-600">
+          Headline figures pool all four test sets ({data.pooled.investigators.toLocaleString()} investigators,{" "}
+          {data.pooled.sanctioned} sanctioned, {data.pooled.namesakes} innocent namesakes): one set of 30 sanctioned
+          people moves 3.3 points per case. Per-set results are below.
+        </p>
+      )}
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        <Tile label="Sanctioned people found (recall)" value={pct(main.recall_alert)} target="≥ 95%" ok={main.recall_alert >= 0.95}
-              note={`exact-name check: ${pct(base.recall_alert)}`} />
-        <Tile label="“Probable match” that are right (precision)" value={pct(main.precision_probable)} target="≥ 90%" ok={main.precision_probable >= 0.9}
-              note={`exact-name check: ${pct(base.precision_probable)}`} />
-        <Tile label="Innocent homonyms marked “probable”" value={main.homonyms_probable} target="0" ok={main.homonyms_probable === 0}
-              note={`exact-name check: ${base.homonyms_probable}`} />
+        <Tile label="Sanctioned people found (recall)" value={pct(P.recall)} target="≥ 95%" ok={P.recall >= 0.95}
+              note={`${P.found}/${P.sanctioned} · exact-name check: ${pct(B.recall)}`} />
+        <Tile label="“Probable match” that are right (precision)" value={pct(P.precision_probable)} target="≥ 90%"
+              ok={P.precision_probable >= 0.9} note={`${P.probable_right}/${P.probable} · exact-name check: ${pct(B.precision_probable)}`} />
+        <Tile label="Innocent namesakes marked “probable”" value={`${P.namesakes_probable} of ${P.namesakes}`} target="0"
+              ok={P.namesakes_probable === 0} note={`exact-name check: ${B.namesakes_probable} of ${B.namesakes}`} />
         <Tile label="Time to screen 300 investigators" value={`${main.seconds_for_300}s`} target="< 60s" ok={main.seconds_for_300 < 60} />
       </div>
 
@@ -92,7 +101,7 @@ export default function EvaluationPage() {
         </section>
 
         <section className="card p-6 lg:col-span-2">
-          <h2 className="font-semibold">Where each investigator landed</h2>
+          <h2 className="font-semibold">Where each investigator landed (main set)</h2>
           <div className="mt-4 overflow-x-auto">
             <table className="min-w-full text-sm">
               <thead><tr className="border-b border-slate-200">
@@ -125,7 +134,7 @@ export default function EvaluationPage() {
       </div>
 
       <section className="card p-6">
-        <h2 className="font-semibold">Compared with simpler approaches</h2>
+        <h2 className="font-semibold">Compared with simpler approaches (main set of 300)</h2>
         <div className="mt-4 overflow-x-auto">
           <table className="min-w-full text-sm">
             <thead><tr className="border-b border-slate-200">

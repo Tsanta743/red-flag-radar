@@ -61,14 +61,17 @@ class SurnameRarity:
         return round(-math.log10(prop / 1e5), 3)
 
 
-def prefix_keys(last: str, first: str) -> set[str]:
+def prefix_keys(last: str, first: str, state: str = "") -> set[str]:
     """Extra blocking keys, robust to typos that change the sound of a surname:
-    surname prefix + first initial, and surname initial + first-name prefix."""
+    surname prefix + first initial, surname initial + first-name prefix, and
+    (for an initial with transposed letters) surname start + initial + state."""
     keys = set()
     if len(last) >= 4 and first:
         keys.add(f"P:{last[:4]}:{first[:1]}")
     if last and len(first) >= 3:
         keys.add(f"F:{last[:1]}:{first[:3]}")
+    if len(last) >= 2 and first and state:
+        keys.add(f"S:{last[:2]}:{first[:1]}:{state}")
     return keys
 
 
@@ -77,13 +80,13 @@ class Blocker:
 
     def __init__(self, sanctions: pd.DataFrame):
         self.index: dict[str, list[int]] = defaultdict(list)
-        for i, (last, first) in enumerate(zip(sanctions["last"], sanctions["first"])):
-            for k in phonetic_keys(last) | prefix_keys(last, first):
+        for i, (last, first, state) in enumerate(zip(sanctions["last"], sanctions["first"], sanctions["state"])):
+            for k in phonetic_keys(last) | prefix_keys(last, first, state):
                 self.index[k].append(i)
 
     def candidates(self, cand: dict) -> list[int]:
         keys = phonetic_keys(cand["last"]) | phonetic_keys(cand["first"])  # first: swapped names
-        keys |= prefix_keys(cand["last"], cand["first"]) | prefix_keys(cand["first"], cand["last"])
+        keys |= prefix_keys(cand["last"], cand["first"], cand["state"]) | prefix_keys(cand["first"], cand["last"])
         out = set()
         for k in keys:
             out.update(self.index.get(k, ()))
