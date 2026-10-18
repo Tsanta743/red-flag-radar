@@ -8,3 +8,4 @@ data/radar.db
 data/radar.db-*
 .env
 deploy/certs/
+data/test_csv/err_07_too_large.csv

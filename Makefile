@@ -1,6 +1,6 @@
 PY ?= .venv/bin/python
 
-.PHONY: setup data train eval test all api web
+.PHONY: setup data train eval test all api web test-csvs
 setup:
 	python3 -m venv .venv && $(PY) -m pip install -q -r requirements.txt
 data:
@@ -16,3 +16,6 @@ api:
 	$(PY) -m uvicorn backend.app.main:app --reload --port 8000
 web:
 	cd frontend && npm run dev
+
+test-csvs:
+	$(PY) scripts/make_test_csvs.py
