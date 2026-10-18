@@ -7,3 +7,4 @@ frontend/dist/
 data/radar.db
 data/radar.db-*
 .env
+deploy/certs/

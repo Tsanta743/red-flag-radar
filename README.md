@@ -5,6 +5,8 @@ confidence score, plain-language reasons and a link to the official record for e
 
 Built for the Regeneron *Reinvent Clinical Trials* track at HackHarvard 2026 ("Red Flag Radar" brief).
 
+**Live demo: https://radar.rahandrisoa.com** (click "Use the demo set")
+
 ![Results](docs/results.png)
 
 ## The problem
@@ -83,6 +85,12 @@ make setup              # venv + Python dependencies
 make all                # import lists, build test set, train, evaluate, run tests
 make api                # API on :8000
 cd frontend && npm install && npm run dev   # UI on :5173
+```
+
+Behind Cloudflare with SSL mode "Full", also serve HTTPS on 443 (put an origin certificate in `deploy/certs/`):
+
+```bash
+docker compose -f docker-compose.yml -f docker-compose.tls.yml up -d
 ```
 
 `make data` downloads fresh lists (falls back to the latest snapshot if offline; set `RADAR_OFFLINE=1`
